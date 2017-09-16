@@ -7,6 +7,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import ru.nickly.bot.tgmodel.Answer;
 import ru.nickly.bot.tgmodel.AnswerCallbackQuery;
+import ru.nickly.bot.tgmodel.MessageReplyMarkup;
 
 
 @Service
@@ -16,4 +17,7 @@ public interface BotService {
 
     @POST("answerCallbackQuery")
     Call<ResponseBody> answerCallbackQuery(@Body AnswerCallbackQuery answerCallbackQuery);
+
+    @POST("editMessageReplyMarkup")
+    Call<ResponseBody> editMessageReplyMarkup(@Body MessageReplyMarkup messageReplyMarkup);
 }

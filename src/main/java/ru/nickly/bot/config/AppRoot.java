@@ -16,6 +16,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import ru.nickly.bot.webservice.BotService;
+import ru.nickly.bot.webservice.OneNoteService;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -39,6 +40,7 @@ public class AppRoot {
     private static final String PROPERTY_NAME_ENTITYMANAGER_PACKAGES_TO_SCAN = "entitymanager.packages.to.scan";
 
     private static final String APPLICATION_TOKEN = "app.token";
+
 
     @Resource
     private Environment env;
@@ -82,16 +84,27 @@ public class AppRoot {
     }
 
 
-    @Bean
-    public Retrofit retrofitInstance(){
+    private Retrofit botRetrofitInstance(){
         return new Retrofit.Builder()
                 .baseUrl("https://api.telegram.org/bot"+env.getRequiredProperty(APPLICATION_TOKEN)+"/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }
 
+    private Retrofit oneNoteRetrofitInstance(){
+        return new Retrofit.Builder()
+                .baseUrl("https://login.live.com/")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+    }
+
     @Bean
     public BotService botService(){
-        return retrofitInstance().create(BotService.class);
+        return botRetrofitInstance().create(BotService.class);
+    }
+
+    @Bean
+    public OneNoteService oneNoteService(){
+        return oneNoteRetrofitInstance().create(OneNoteService.class);
     }
 }

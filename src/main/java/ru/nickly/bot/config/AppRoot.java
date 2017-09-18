@@ -16,7 +16,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.jackson.JacksonConverterFactory;
 
 import ru.nickly.bot.webservice.BotService;
-import ru.nickly.bot.webservice.OneNoteService;
+import ru.nickly.bot.webservice.OneNoteApiService;
+import ru.nickly.bot.webservice.OneNoteAuthService;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -91,9 +92,16 @@ public class AppRoot {
                 .build();
     }
 
-    private Retrofit oneNoteRetrofitInstance(){
+    private Retrofit oneNoteAuthRetrofitInstance(){
         return new Retrofit.Builder()
                 .baseUrl("https://login.live.com/")
+                .addConverterFactory(JacksonConverterFactory.create())
+                .build();
+    }
+
+    private Retrofit oneNoteApiRetrofitInstance(){
+        return new Retrofit.Builder()
+                .baseUrl("https://www.onenote.com/api/")
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
     }
@@ -104,7 +112,14 @@ public class AppRoot {
     }
 
     @Bean
-    public OneNoteService oneNoteService(){
-        return oneNoteRetrofitInstance().create(OneNoteService.class);
+    public OneNoteAuthService oneNoteAuthService(){
+        return oneNoteAuthRetrofitInstance().create(OneNoteAuthService.class);
     }
+
+    @Bean
+    public OneNoteApiService oneNoteApiService(){
+        return oneNoteApiRetrofitInstance().create(OneNoteApiService.class);
+    }
+
+
 }

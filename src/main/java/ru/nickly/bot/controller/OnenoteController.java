@@ -6,11 +6,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import retrofit2.Response;
 import ru.nickly.bot.onenotemodel.Authentication;
+import ru.nickly.bot.onenotemodel.Notebook;
 import ru.nickly.bot.onenotemodel.Token;
-import ru.nickly.bot.webservice.OneNoteService;
+import ru.nickly.bot.webservice.OneNoteApiService;
+import ru.nickly.bot.webservice.OneNoteAuthService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 public class OnenoteController {
@@ -18,19 +21,22 @@ public class OnenoteController {
     @Resource
     private Environment env;
 
-    private OneNoteService oneNoteService;
+    private OneNoteAuthService oneNoteAuthService;
 
-    
-    public OnenoteController(OneNoteService oneNoteService) {
-        this.oneNoteService = oneNoteService;
+    private OneNoteApiService oneNoteApiService;
+
+    public OnenoteController(OneNoteAuthService oneNoteAuthService, OneNoteApiService oneNoteApiService) {
+        this.oneNoteAuthService = oneNoteAuthService;
+        this.oneNoteApiService = oneNoteApiService;
     }
+
 
     @RequestMapping(value = "/auth", params = {"code"}, method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String setCode(@RequestParam("code") String code) throws IOException {
         Authentication.getInstance().setCode(code);
         Response response =
-                oneNoteService.getToken(env.getRequiredProperty("client.id"), env.getRequiredProperty("redirect.uri"),
+                oneNoteAuthService.getToken(env.getRequiredProperty("client.id"), env.getRequiredProperty("redirect.uri"),
                         env.getRequiredProperty("secret.code"), Authentication.getInstance().getCode(),
                         env.getRequiredProperty("auth.grant.type"))
                         .execute();

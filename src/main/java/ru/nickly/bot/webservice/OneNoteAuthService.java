@@ -6,7 +6,7 @@ import retrofit2.http.*;
 import ru.nickly.bot.onenotemodel.Token;
 
 @Service
-public interface OneNoteService {
+public interface OneNoteAuthService {
 
     @FormUrlEncoded
     @POST("oauth20_token.srf")
@@ -21,5 +21,4 @@ public interface OneNoteService {
     Call<Token> refreshToken(@Field("client_id") String clientId, @Field("redirect_uri") String redirectUri,
                              @Field("client_secret") String clientSecret, @Field("refresh_token") String refreshToken,
                              @Field("grant_type") String grantType);
-
 }

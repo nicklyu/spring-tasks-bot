@@ -1,11 +1,12 @@
 package ru.nickly.bot.onenotemodel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import lombok.Data;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Notebook {
+public class OneNoteEntity {
     private String id;
     private String self;
     private String createdTime;
@@ -13,5 +14,4 @@ public class Notebook {
     private String createdBy;
     private String lastModifiedBy;
     private String lastModifiedTime;
-
 }

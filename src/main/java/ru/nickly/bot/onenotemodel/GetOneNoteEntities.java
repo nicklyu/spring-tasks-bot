@@ -7,6 +7,6 @@ import java.util.List;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GetNotebooksResult {
-    private List<Notebook> value;
+public class GetOneNoteEntities {
+    private List<OneNoteEntity> value;
 }

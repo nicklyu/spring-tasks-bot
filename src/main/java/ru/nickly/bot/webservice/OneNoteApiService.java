@@ -23,4 +23,8 @@ public interface OneNoteApiService {
     @GET("v1.0/me/notes/sections/{sectionId}/pages")
     Call<GetPagesResult> getPages(@Header("Authorization") String authorization,
                                   @Path("sectionId") String sectionId);
+
+    @GET("v1.0/me/notes/pages/{pageId}/content")
+    Call<String> getContent(@Header("Authorization") String authorization,
+                            @Path("pageId") String pageId);
 }

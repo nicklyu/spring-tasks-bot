@@ -143,7 +143,7 @@ public class AppRoot {
     public SimpleTriggerFactoryBean getOneNoteUpdatesQuartzTrigger(){
         SimpleTriggerFactoryBean simpleTriggerFactoryBean = new SimpleTriggerFactoryBean();
         simpleTriggerFactoryBean.setJobDetail(getOneNoteUpdatesJobFactory().getObject());
-        simpleTriggerFactoryBean.setRepeatInterval(5000);
+        simpleTriggerFactoryBean.setRepeatInterval(50000);
         return simpleTriggerFactoryBean;
     }
 

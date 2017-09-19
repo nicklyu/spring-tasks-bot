@@ -7,6 +7,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Path;
 import ru.nickly.bot.onenotemodel.GetNotebooksResult;
+import ru.nickly.bot.onenotemodel.GetPagesResult;
 import ru.nickly.bot.onenotemodel.GetSectionsResult;
 
 @Service
@@ -19,4 +20,7 @@ public interface OneNoteApiService {
     Call<GetSectionsResult> getSections(@Header("Authorization") String authorization,
                                         @Path("notebookId") String notebookId);
 
+    @GET("v1.0/me/notes/sections/{sectionId}/pages")
+    Call<GetPagesResult> getPages(@Header("Authorization") String authorization,
+                                  @Path("sectionId") String sectionId);
 }

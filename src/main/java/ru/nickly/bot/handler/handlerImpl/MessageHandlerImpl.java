@@ -3,6 +3,7 @@ package ru.nickly.bot.handler.handlerImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nickly.bot.data.entity.Group;
+import ru.nickly.bot.data.entity.Task;
 import ru.nickly.bot.data.entity.User;
 import ru.nickly.bot.data.service.GroupService;
 import ru.nickly.bot.data.service.UserService;
@@ -12,7 +13,11 @@ import ru.nickly.bot.tgmodel.InlineKeyboardMarkup;
 import ru.nickly.bot.tgmodel.Message;
 import ru.nickly.bot.webservice.BotService;
 
+import javax.persistence.Table;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,6 +26,9 @@ public class MessageHandlerImpl implements MessageHandler {
 
     private BotService botService;
     private UserService userService;
+
+    @Autowired
+    private GroupService groupService;
 
     public MessageHandlerImpl(BotService botService, UserService userService) {
         this.botService = botService;
@@ -60,8 +68,15 @@ public class MessageHandlerImpl implements MessageHandler {
 
     }
 
-    private void getTasksCommand(Integer id) {
-        //TODO
+    private void getTasksCommand(Integer id)  {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date =  new Date(format.parse("2017-09-21").getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        groupService.addGroupTask(172, Task.builder().date(date).done(false).build());
         System.out.println("tasks shown");
     }
 

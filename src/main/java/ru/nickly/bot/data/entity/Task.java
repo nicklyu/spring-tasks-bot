@@ -12,7 +12,7 @@ import java.sql.Date;
 @AllArgsConstructor
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
     @Getter @Setter private Integer id;
 
@@ -27,7 +27,7 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "group_id")
-    private Group group;
+    @Getter @Setter private Group group;
 
 
     @Override

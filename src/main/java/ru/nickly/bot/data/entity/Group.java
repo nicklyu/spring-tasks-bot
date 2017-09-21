@@ -23,7 +23,7 @@ public class Group {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     @Getter @Setter private Set<User> users = new HashSet<>();
 
-    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, targetEntity = Task.class)
+    @OneToMany(mappedBy = "group", fetch = FetchType.EAGER, targetEntity = Task.class,cascade = CascadeType.ALL)
     @Getter @Setter private Set<Task> tasks = new HashSet<>();
 
 

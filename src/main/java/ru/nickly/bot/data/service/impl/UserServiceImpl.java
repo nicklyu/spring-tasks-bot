@@ -17,34 +17,28 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserRepository userRepository;
 
-
-    @Transactional
+    @Override
     public User addUser(User user) {
         return userRepository.save(user);
     }
 
-    @Transactional
-    public List<User> findAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @Transactional
-    public User removeGroup(Integer userId, Integer groupId) {
+    @Override
+    public User addGroup(Integer userId, Group group) {
         User user = userRepository.findOne(userId);
-        user.getGroups().remove(Group.builder().id(groupId).build());
-        userRepository.saveAndFlush(user);
+        user.getGroups().add(group);
+        userRepository.save(user);
         return user;
     }
 
-    @Transactional
-    public User addGroup(Integer userId, Integer groupId) {
+    @Override
+    public User removeGroup(Integer userId, Group group) {
         User user = userRepository.findOne(userId);
-        user.getGroups().add(Group.builder().id(groupId).build());
-        userRepository.saveAndFlush(user);
+        user.getGroups().remove(group);
+        userRepository.save(user);
         return user;
     }
 
-    @Transactional
+    @Override
     public Set<Group> getGroupsByUserId(Integer id) {
         return userRepository.findOne(id).getGroups();
     }

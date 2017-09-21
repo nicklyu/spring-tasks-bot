@@ -1,32 +1,35 @@
 package ru.nickly.bot.data.entity;
 
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
-
-@Data
-@Builder
 @Entity
 @Table(name = "users")
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
     @Id
     @Column(name = "user_id")
-    private Integer id;
+    @Getter @Setter private Integer id;
 
     @Column(name = "name")
-    private String name;
+    @Getter @Setter private String name;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_groups",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private Set<Group> groups;
+    @Getter @Setter private Set<Group> groups = new HashSet<>();
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

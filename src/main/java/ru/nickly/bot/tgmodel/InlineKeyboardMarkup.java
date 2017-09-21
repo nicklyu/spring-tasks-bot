@@ -14,8 +14,8 @@ public class InlineKeyboardMarkup {
     private List<List<InlineKeyboardButton>> inline_keyboard;
 
     public static InlineKeyboardMarkup create(Set<Group> groups, Boolean toAdd) {
-        List<List<InlineKeyboardButton>> buttons = new ArrayList<List<InlineKeyboardButton>>();
-        List<InlineKeyboardButton> level = new ArrayList<InlineKeyboardButton>();
+        List<List<InlineKeyboardButton>> buttons = new ArrayList<>();
+        List<InlineKeyboardButton> level = new ArrayList<>();
         int index = 0;
         for (int i = 171; i <= 177; i++) {
             if (groups.contains(Group.builder().id(i).build()) != toAdd) {
@@ -25,7 +25,7 @@ public class InlineKeyboardMarkup {
             if (index % 3 == 0) {
                 index = 0;
                 buttons.add(level);
-                level = new ArrayList<InlineKeyboardButton>();
+                level = new ArrayList<>();
             }
         }
         buttons.add(level);

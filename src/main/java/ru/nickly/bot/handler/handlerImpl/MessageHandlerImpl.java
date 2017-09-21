@@ -1,10 +1,10 @@
 package ru.nickly.bot.handler.handlerImpl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.nickly.bot.data.entity.Group;
 import ru.nickly.bot.data.entity.User;
+import ru.nickly.bot.data.service.GroupService;
 import ru.nickly.bot.data.service.UserService;
 import ru.nickly.bot.handler.MessageHandler;
 import ru.nickly.bot.tgmodel.Answer;
@@ -46,7 +46,7 @@ public class MessageHandlerImpl implements MessageHandler {
     }
 
     private void startCommand(Integer id, String name) {
-        userService.addUser(User.builder().id(id).name(name).groups(new HashSet<Group>()).build());
+        userService.addUser(User.builder().id(id).name(name).build());
     }
 
     private void addGroupCommand(Integer id) throws IOException {

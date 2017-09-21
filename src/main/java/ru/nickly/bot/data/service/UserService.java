@@ -8,8 +8,7 @@ import java.util.Set;
 
 public interface UserService {
     User addUser(User user);
-    User addGroup(Integer userId, Integer groupId);
-    User removeGroup(Integer userId, Integer groupId);
+    User addGroup(Integer userId, Group group);
+    User removeGroup(Integer userId, Group group);
     Set<Group> getGroupsByUserId(Integer id);
-    List<User> findAllUsers();
 }

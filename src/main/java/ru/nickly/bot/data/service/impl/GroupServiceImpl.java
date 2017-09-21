@@ -7,7 +7,7 @@ import ru.nickly.bot.data.repository.GroupRepository;
 import ru.nickly.bot.data.service.GroupService;
 
 import javax.annotation.Resource;
-import java.util.List;
+
 
 @Service
 public class GroupServiceImpl implements GroupService {
@@ -16,7 +16,8 @@ public class GroupServiceImpl implements GroupService {
     private GroupRepository groupRepository;
 
     @Transactional
-    public List<Group> findAllGroups() {
-        return groupRepository.findAll();
+    @Override
+    public Group getGroupById(Integer id) {
+        return groupRepository.findOne(id);
     }
 }
